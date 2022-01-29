@@ -1,9 +1,9 @@
 let uid = 1;
-const MAIN_URI = "https://www.letskorail.com/ebizprd/EbizPrdTicketPr21111_i1.do";
+const MAIN_URI = "https://etk.srail.kr/hpg/hra/01/selectScheduleList.do?pageId=TK0101010000";
 const LOGIN_PAGE_URI = "https://www.letskorail.com/korail/com/login.do";
 
 const createCheckbox = () => {
-  const $rows = document.querySelectorAll("#tableResult > tbody > tr");
+  const $rows = document.querySelectorAll("div.tbl_wrap.th_thead > table > tbody > tr");
 
   if (!$rows.length) {
     return;
@@ -43,7 +43,7 @@ const getCheckboxTemplate = uid => {
   return `
     <div>
       <label>
-        <input type="checkbox" class="ktx-macro-checkbox" value="${uid}" ${isChecked(uid) && "checked"}>
+        <input type="checkbox" class="srt-macro-checkbox" value="${uid}" ${isChecked(uid) && "checked"}>
         매크로
       </label>
     </div>
@@ -51,7 +51,7 @@ const getCheckboxTemplate = uid => {
 };
 
 const setCheckboxEvent = () => {
-  const $checkboxes = document.querySelectorAll(".ktx-macro-checkbox");
+  const $checkboxes = document.querySelectorAll(".srt-macro-checkbox");
 
   for (let i = 0; i < $checkboxes.length; i++) {
     $checkboxes[i].addEventListener("click", () => {
@@ -114,32 +114,11 @@ const macro = () => {
     $row = $rows[i];
 
     if (isChecked(++uid)) {
-      $row.querySelector("td:nth-child(5)").style.backgroundColor = "#f03e3e";
-      const $button =
-        $row
-          .querySelector("td:nth-child(5)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]') ||
-        $row
-          .querySelector("td:nth-child(5)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
-
-      if ($button) {
-        $button.closest("a").click();
-        localStorage.removeItem("macro");
-        chrome.extension.sendMessage({ type: "successTicketing" });
-        break;
-      }
-    }
-
-    if (isChecked(++uid)) {
       $row.querySelector("td:nth-child(6)").style.backgroundColor = "#f03e3e";
       const $button =
         $row
           .querySelector("td:nth-child(6)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]') ||
-        $row
-          .querySelector("td:nth-child(6)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
+          .querySelector('.btn_small.btn_burgundy_dark');
 
       if ($button) {
         $button.closest("a").click();
@@ -150,9 +129,25 @@ const macro = () => {
     }
 
     if (isChecked(++uid)) {
-      $row.querySelector("td:nth-child(10)").style.backgroundColor = "#f03e3e";
-      const $button = $row.querySelector("td:nth-child(10)")
-                          .querySelector('[src="/docs/2007/img/common/icon_wait.gif"]');
+      $row.querySelector("td:nth-child(7)").style.backgroundColor = "#f03e3e";
+      const $button =
+        $row
+          .querySelector("td:nth-child(7)")
+          .querySelector('.btn_small.btn_burgundy_dark');
+
+      if ($button) {
+        $button.closest("a").click();
+        localStorage.removeItem("macro");
+        chrome.extension.sendMessage({ type: "successTicketing" });
+        break;
+      }
+    }
+
+    if (isChecked(++uid)) {
+      $row.querySelector("td:nth-child(8)").style.backgroundColor = "#f03e3e";
+      const $button = $row
+                        .querySelector("td:nth-child(8)")
+                        .querySelector('.btn_small.btn_burgundy_dark');
 
       if ($button) {
         $button.closest("a").click();
@@ -172,7 +167,7 @@ const reload = () => {
 
 const saveCheckboxState = () => {
   let checkedItems = [];
-  const $checkboxes = document.querySelectorAll(".ktx-macro-checkbox");
+  const $checkboxes = document.querySelectorAll(".srt-macro-checkbox");
 
   for (let i = 0; i < $checkboxes.length; i++) {
     if ($checkboxes[i].checked) {
