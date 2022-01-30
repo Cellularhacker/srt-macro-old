@@ -26,7 +26,7 @@ const sendTelegramMessage = () => {
 }
 
 chrome.extension.onMessage.addListener((message, sender, sendResponse) => {
-    if (message && message.type == 'successTicketing') {
+    if (message && message.type === 'successTicketing') {
         playSound();
         sendTelegramMessage();
         sendResponse(true);

@@ -11,13 +11,13 @@ const createCheckbox = () => {
 
   $rows.forEach($row => {
     $row
-      .querySelector("td:nth-child(5)")
-      .insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
-    $row
       .querySelector("td:nth-child(6)")
       .insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
     $row
-      .querySelector("td:nth-child(10)")
+      .querySelector("td:nth-child(7)")
+      .insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
+    $row
+      .querySelector("td:nth-child(8)")
       .insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
   });
 };
